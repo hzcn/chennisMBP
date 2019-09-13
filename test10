@@ -1,0 +1,33 @@
+#!/usr/bin/pyt`hon
+# -*- coding: UTF-8 -*-
+
+import requests
+from bs4 import BeautifulSoup
+
+movie_url = 'https://movie.douban.com/subject/1292052/'
+def download_page(url):
+	headers = {
+	'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_12)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36'
+	}
+
+	data = requests.get(url, headers = headers).content
+	return data
+
+def paser_html(html):
+	soup = BeautifulSoup(html, 'lxml')
+	title = soup.find(property = 'v:itemreviewed').string
+
+	return title
+
+
+def main():
+	print(paser_html(download_page(movie_url)))
+
+if __name__ == '__main__':
+	main()
+
+
+
+
+
+
